@@ -22,4 +22,5 @@ async def redirectProxy(url:str=None):
         async with httpx.AsyncClient() as client:
             response = await client.get(url, headers={'User-Agent':ua.random.strip()},follow_redirects=False)
             redirect = response.headers.get("Location") if response.headers else ""
+            print(response.text)
             return Response(content=redirect, media_type="text/html")
