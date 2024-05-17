@@ -1,3 +1,4 @@
 fastapi
 httpx
 fake_useragent
+uvicorn
