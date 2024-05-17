@@ -27,8 +27,8 @@ async def redirect_proxy(url:str=None):  # Corrected function name to follow nam
         random_socks4_proxy = random.choice(socks4_proxies)
         socks4_ip = random_socks4_proxy['ip']
         socks4_port = random_socks4_proxy['port']
-        proxy = {"http://": f"socks4://{socks4_ip}:{socks4_port}", "https://": f"socks4://{socks4_ip}:{socks4_port}"}  # Corrected variable name
-        async with httpx.AsyncClient(proxies=proxy) as client:  # Changed variable name to avoid overwriting 'proxies'
+        proxy = f"socks4://{socks4_ip}:{socks4_port}"
+        async with httpx.AsyncClient(proxy=proxy) as client:  # Changed variable name to avoid overwriting 'proxies'
             response = await client.get(url, headers={'User-Agent': ua.random.strip()}, follow_redirects=False)  # Changed variable name to avoid overwriting 'response'
             redirect = response.headers.get("Location") if response.headers else ""
             print(response.text)
