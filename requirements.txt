@@ -1,4 +1,4 @@
 fastapi
-httpx
 fake_useragent
 uvicorn
+httpx[socks]
