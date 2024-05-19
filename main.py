@@ -5,7 +5,7 @@ from fake_useragent import UserAgent
 import random  # Import random module
 app = FastAPI()
 from fastapi.middleware.cors import CORSMiddleware
-
+import json
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Set it to ["*"] to allow all origins
@@ -49,3 +49,20 @@ async def meta_proxy(url:str=None):  # Corrected function name to follow naming 
                 'TE': 'trailers'
             }) 
             return Response(content=response.text, media_type="application/json")
+@app.post("/fileproxy")
+async def meta_proxy_post(url:str=None,data:str=None):  # Corrected function name to follow naming conventions
+    if url is None:
+        return Response(status_code=404)
+    else:
+        ua = UserAgent()
+        url = urllib.parse.unquote(url)
+        data = json.loads(urllib.parse.unquote(data))
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, headers={
+                'User-Agent': ua.random.strip(),
+                'Accept': 'text/html',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Referer': 'https://www.febbox.com/',
+                'TE': 'trailers'
+            },data=data) 
+            return Response(content=response.text, media_type="text/html")
