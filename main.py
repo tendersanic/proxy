@@ -33,3 +33,19 @@ async def redirect_proxy(url:str=None):  # Corrected function name to follow nam
             redirect = response.headers.get("Location") if response.headers else ""
             print(response.text)
             return Response(content=redirect, media_type="text/html")
+@app.get("/metaproxy")
+async def meta_proxy(url:str=None):  # Corrected function name to follow naming conventions
+    if url is None:
+        return Response(status_code=404)
+    else:
+        ua = UserAgent()
+        url = urllib.parse.unquote(url)
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, headers={
+                'User-Agent': ua.random.strip(),
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Referer': 'https://www.febbox.com/',
+                'TE': 'trailers'
+            }) 
+            return Response(content=response.text, media_type="application/json")
