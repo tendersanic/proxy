@@ -44,10 +44,10 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
         async with httpx.AsyncClient() as client:
             response = await client.get(url, headers={
                 'User-Agent': ua.random.strip(),
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Referer': 'https://www.febbox.com/',
-                'TE': 'trailers'
+                # 'Accept': 'application/json, text/javascript, */*; q=0.01',
+                # 'X-Requested-With': 'XMLHttpRequest',
+                # 'Referer': 'https://www.febbox.com/',
+                # 'TE': 'trailers'
             }) 
             return Response(content=response.text, media_type="application/json")
 @app.post("/fileproxy")
