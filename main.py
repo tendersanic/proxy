@@ -46,7 +46,7 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
                 'User-Agent': ua.random.strip(),
                 # 'Accept': 'application/json, text/javascript, */*; q=0.01',
                 # 'X-Requested-With': 'XMLHttpRequest',
-                # 'Referer': 'https://www.febbox.com/',
+                'Referer': 'https://www.primewire.tf/links/go/GYP73',
                 # 'TE': 'trailers'
             }) 
             return Response(content=response.text, media_type="application/json")
