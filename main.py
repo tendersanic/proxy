@@ -48,7 +48,7 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
                 # 'X-Requested-With': 'XMLHttpRequest',
                 'Referer': 'https://www.primewire.tf/links/go/GYP73',
                 # 'TE': 'trailers'
-            }) 
+            },follow_redirects=True) 
             return Response(content=response.text, media_type="application/json")
 @app.post("/fileproxy")
 async def meta_proxy_post(url:str=None,data:str=None):  # Corrected function name to follow naming conventions
