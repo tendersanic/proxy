@@ -34,7 +34,8 @@ async def redirect_proxy(url:str=None):  # Corrected function name to follow nam
             print(response.text)
             return Response(content=redirect, media_type="text/html")
 @app.get("/metaproxy")
-async def meta_proxy(url:str=None):  # Corrected function name to follow naming conventions
+async def meta_proxy(destination:str=None):  # Corrected function name to follow naming conventions
+    url = destination
     if url is None:
         return Response(status_code=404)
     else:
