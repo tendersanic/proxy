@@ -41,6 +41,7 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
     else:
         ua = UserAgent()
         url = urllib.parse.unquote(url)
+        original_headers = {}
         async with httpx.AsyncClient() as client:
             response = await client.get(url, headers={
                 'User-Agent': ua.random.strip(),
@@ -48,8 +49,9 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
                 # 'X-Requested-With': 'XMLHttpRequest',
                 'Referer': 'https://www.primewire.tf/links/go/GYP73',
                 # 'TE': 'trailers'
-            },follow_redirects=True) 
-            return Response(content=response.text)
+            },follow_redirects=True)
+            original_headers = dict(response.headers)
+            return Response(content=response.text,headers=original_headers)
 @app.post("/fileproxy")
 async def meta_proxy_post(url:str=None,data:str=None):  # Corrected function name to follow naming conventions
     if url is None:
