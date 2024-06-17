@@ -51,7 +51,7 @@ async def meta_proxy(destination:str=None):  # Corrected function name to follow
                 # 'TE': 'trailers'
             },follow_redirects=True)
             original_headers = dict(response.headers)
-            return Response(content=response.text,headers=original_headers)
+            return Response(content=response.text,headers=original_headers,status_code=response.status_code)
 @app.post("/fileproxy")
 async def meta_proxy_post(url:str=None,data:str=None):  # Corrected function name to follow naming conventions
     if url is None:
